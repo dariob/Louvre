@@ -7,8 +7,8 @@
     <string name="activity_gallery_action_select_all">Select All</string>
     <string name="activity_gallery_action_clear">Clear</string>
     <string name="activity_gallery_no_images">No images.</string>
-    <string name="activity_gallery_max_selection_reached">You have reached the max number of photos.</string>
-    <string name="activity_gallery_will_exceed_max_selection">You will exceed the max number of photos.</string>
+    <string name="activity_gallery_max_selection_reached">Hai raggiunto il massimo numero di immagini selezionabili.</string>
+    <string name="activity_gallery_will_exceed_max_selection">Andresti oltre il massimo numero di immaginini selezionabili.</string>
     <string name="activity_gallery_bucket_all_media">All Media</string>
     <plurals name="activity_gallery_count_selection">
         <item quantity="one">%d selected</item>
