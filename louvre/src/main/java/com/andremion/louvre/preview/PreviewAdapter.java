@@ -17,6 +17,8 @@
 package com.andremion.louvre.preview;
 
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.media.Image;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.IntRange;
@@ -34,6 +36,18 @@ import android.widget.ImageView;
 
 import com.andremion.louvre.R;
 import com.andremion.louvre.util.transition.MediaSharedElementCallback;
+import com.bumptech.glide.BitmapRequestBuilder;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.FutureTarget;
+import com.bumptech.glide.request.Request;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.Target;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
@@ -138,15 +152,47 @@ class PreviewAdapter extends PagerAdapter {
     private void onViewBound(ViewHolder holder, int position, Uri data) {
         String imageTransitionName = holder.imageView.getContext().getString(R.string.activity_gallery_image_transition, data.toString());
         ViewCompat.setTransitionName(holder.imageView, imageTransitionName);
+
+        // Create global configuration and initialize ImageLoader with this config
+ /*       ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(mActivity)
+            .build();
+        ImageLoader.getInstance().init(config);
+
+        ImageLoader imageLoader = ImageLoader.getInstance();
+
+        imageLoader.loadImage(data, new ImageLoadingCallback(position));/ */
+
+
+     //Request request;
+     //request = (Request) Glide.with(mActivity).load(data).into(holder.imageView,  ImageLoadingCallback(position));
+
+    /*    Glide.with(mActivity)
+                .load(data)
+                .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+
+                .into(holder.imageView);
+*/
+
+
+
+
+
+
+
+    //    int pinto = Glide.with(mActivity).load(data).into(holder.imageView, new ImageLoadingCallback(position));
+
         RequestCreator request = Picasso.with(mActivity)
                 .load(data)
-                .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
-                .fit()
-                .centerInside();
+                .config(Bitmap.Config.RGB_565);
+          //      .resize(holder.imageView.getMaxWidth(), holder.imageView.getMaxHeight());
+            //.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE);
+            //    .fit()
+           //    .centerInside();
+
         if (mDontAnimate) {
             request.noFade();
         }
-        request.into(holder.imageView, new ImageLoadingCallback(position));
+         request.into(holder.imageView, new ImageLoadingCallback(position));
     }
 
     private boolean isSelected(int position) {
@@ -226,7 +272,7 @@ class PreviewAdapter extends PagerAdapter {
 
     }
 
-    private class ImageLoadingCallback implements Callback {
+    private class ImageLoadingCallback implements Callback, ImageLoadingListener {
 
         final int mPosition;
 
@@ -244,6 +290,25 @@ class PreviewAdapter extends PagerAdapter {
             startPostponedEnterTransition(mPosition);
         }
 
+        @Override
+        public void onLoadingStarted(String imageUri, View view) {
+
+        }
+
+        @Override
+        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+
+        }
+
+        @Override
+        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+
+        }
+
+        @Override
+        public void onLoadingCancelled(String imageUri, View view) {
+
+        }
     }
 
 }
