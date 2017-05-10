@@ -374,6 +374,7 @@ class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder> {
                 if (mCallbacks != null) {
                     if (selectionChanged) {
                         mCallbacks.onSelectionUpdated(mSelection.size());
+            //dario            getSupportActionBar().setTitle("");
                     } else {
                         mCallbacks.onMaxSelectionReached();
                     }

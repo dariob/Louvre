@@ -18,6 +18,8 @@ package com.andremion.louvre.home;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -142,10 +144,36 @@ public class GalleryActivity extends StoragePermissionActivity implements Galler
 
     @Override
     public void onBackPressed() {
+
+        //dario
+
         if (mFragment.onBackPressed()) {
             resetActionBarTitle();
         } else {
-            super.onBackPressed();
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            builder1.setMessage("Vuoi annullare la selezione ed uscire?");
+            builder1.setCancelable(true);
+
+            builder1.setPositiveButton(
+                    "SI",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                            GalleryActivity.super.onBackPressed();
+                        }
+                    });
+
+            builder1.setNegativeButton(
+                    "NO",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+            //super.onBackPressed();
         }
     }
 
